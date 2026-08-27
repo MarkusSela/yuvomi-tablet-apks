@@ -1,0 +1,12 @@
+# Never commit secrets or generated build state
+.env
+.env.*
+!.env.example
+.gradle/
+**/.gradle/
+build/
+**/build/
+*.keystore
+*.jks
+*.p12
+local.properties

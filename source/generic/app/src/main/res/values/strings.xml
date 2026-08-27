@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Yuvomi</string>
+    <string name="setup_title">Configura Yuvomi</string>
+    <string name="setup_subtitle">Inserisci l’indirizzo del tuo server Yuvomi</string>
+    <string name="server_url_hint">http://192.168.1.20:3001</string>
+    <string name="verify_continue">Verifica e continua</string>
+    <string name="change_server">Cambia server</string>
+    <string name="connection_error">Yuvomi non raggiungibile. Controlla l’indirizzo e la rete.</string>
+    <string name="invalid_url">Inserisci un indirizzo HTTP o HTTPS valido.</string>
+    <string name="retry">Riprova</string>
+</resources>

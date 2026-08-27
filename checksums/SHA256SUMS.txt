@@ -1,0 +1,6 @@
+# SHA-256 degli artefatti Yuvomi Tablet APK
+
+5b3d674fb87045209c8d0544c2bde6db6298e645c206f48cdf4312fc02c24f0f  yuvomi-generico-v0.2.0-debug.apk  # 21106 byte; ZIP OK
+967b6daeaf788ad9393d7e80acac680dee5a9d2fba8a15d25411c7524199ea4c  yuvomi-personale-v0.1.0-corrente.apk  # 18231 byte; ZIP OK
+cb287472f68ce9664d8202d9499ba69f3db8fbcd749179c80fa4a38ba1f7f31f  yuvomi-personale-v0.2.0-debug.apk  # 18241 byte; ZIP OK
+tablet-original-com.fujia.calendar.apk  e6ebb74ca156b192b83052b8cac8be158557a84160402edfabb61d649dcac5c1  # 290573410 byte; asset release
