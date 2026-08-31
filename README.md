@@ -1,62 +1,64 @@
 # Yuvomi Tablet APK
 
-Repository pubblica per gli APK Android collegati al container Yuvomi e per la documentazione del tablet.
+Public repository for the Android APKs connected to the Yuvomi container and for tablet documentation.
 
-## Stato attuale
+## Current version
 
-La versione aggiornata di sviluppo sorgente è **v0.2.1**. Aggiunge una schermata nativa Android per controllare direttamente il tablet, separata dalla WebView e dal calendario Yuvomi.
+The current source and release are **v0.2.1**. This version adds a native Android settings screen that controls the tablet directly, outside the WebView and the Yuvomi calendar.
 
-La build v0.2.1 deve essere generata in modalità `release` e verificata prima della pubblicazione dell'APK. Gli APK `debug` non vengono conservati nella superficie pubblica.
+## Contents
 
-## Contenuto
+- `source/personal/`: source for the personal wrapper v0.2.1.
+- `source/generic/`: source for the generic wrapper v0.2.1.
+- `apks/yuvomi-personale-v0.1.0-corrente.apk`: previous personal APK retained for rollback.
+- `original-tablet/README.md`: identification of the tablet's original APK.
+- `docs/container-yuvomi.md`: verified Yuvomi container configuration.
+- `docs/tablet-identico.md`: requirements and procedure for an identical tablet.
+- `docs/releases/v0.2.1.md`: release log for the native tablet features.
+- `checksums/SHA256SUMS.txt`: checksums for public APK artifacts.
 
-- `source/personal/`: sorgente del wrapper personale v0.2.1.
-- `source/generic/`: sorgente del wrapper generico v0.2.1.
-- `apks/yuvomi-personale-v0.1.0-corrente.apk`: APK personale precedente, conservato per rollback.
-- `original-tablet/README.md`: identificazione dell'APK originale del tablet.
-- `docs/container-yuvomi.md`: configurazione verificata del container Yuvomi.
-- `docs/tablet-identico.md`: requisiti e procedura per un tablet identico.
-- `docs/releases/v0.2.1.md`: log delle funzioni native aggiunte.
-- `checksums/SHA256SUMS.txt`: checksum degli artefatti ancora pubblici.
+The original `com.fujia.calendar` APK is available as an asset of the release because it exceeds GitHub's 100 MB regular-file limit.
 
-## Funzioni v0.2.1
+## v0.2.1 native tablet features
 
-Il pulsante nativo `⚙️` apre **Impostazioni tablet Android**, direttamente nell'APK:
+The native `⚙️` button opens **Android tablet settings** directly inside the APK:
 
-- luminosità manuale e automatica;
-- volumi media, sveglie/promemoria, notifiche, suoneria e sistema;
-- suoni al tocco;
-- orientamento globale automatico, verticale o orizzontale;
-- timeout di spegnimento del display;
-- lettura dello stato del salvaschermo Android e collegamento alle sue impostazioni;
-- richiesta guidata del permesso Android necessario per modificare le impostazioni.
+- manual and automatic brightness;
+- media, alarm/reminder, notification, ringtone and system volumes;
+- touch sounds;
+- global orientation: automatic, portrait or landscape;
+- display-off timeout;
+- Android screensaver status and settings link;
+- guided request for the Android settings-modification permission.
 
-Questi controlli agiscono sul sistema Android e non sulla pagina web del calendario Yuvomi.
+These controls modify Android system settings and do not modify the Yuvomi calendar WebView.
 
-## Varianti
+## Variants
 
-### Tablet personale
+### Personal tablet
 
-La variante personale usa l'endpoint configurato per il tablet di Marco. Il tablet deve essere collegato al tailnet Tailscale corretto.
+Use `yuvomi-personal-v0.2.1.apk` from the [v0.2.1 release](https://github.com/MarkusSela/yuvomi-tablet-apks/releases/tag/v0.2.1). It uses Marco's configured Tailscale endpoint.
 
-### Tablet generico
+The previous v0.1.0 APK remains in the repository for rollback.
 
-La variante generica chiede l'endpoint al primo avvio e lo salva localmente nell'app. L'indirizzo può essere modificato dalla schermata di errore.
+### Generic tablet
 
-## Requisiti
+Use `yuvomi-generic-v0.2.1.apk` from the [v0.2.1 release](https://github.com/MarkusSela/yuvomi-tablet-apks/releases/tag/v0.2.1). On first launch, enter the reachable Yuvomi server endpoint; it is stored locally and can be changed from the error screen.
 
-1. Android 6.0/API 23 o superiore.
-2. Tailscale collegato allo stesso tailnet del server, quando si usa l'endpoint Tailscale.
-3. WebView Android aggiornata.
-4. Download Manager e selettore documenti Android disponibili.
-5. Per le impostazioni native: autorizzare nell'apposita schermata Android il permesso di modifica delle impostazioni di sistema.
+## Requirements
 
-## Container Yuvomi
+1. Android 6.0/API 23 or newer.
+2. Tailscale connected to the same tailnet as the server when using the Tailscale endpoint.
+3. Updated Android WebView.
+4. Android Download Manager and document picker available.
+5. For native settings, grant the app permission to modify system settings in Android settings.
 
-Il servizio Yuvomi verificato usa un container separato. L'APK è solo un wrapper Android: non contiene il database o i segreti del servizio.
+## Yuvomi container
 
-## Build e sicurezza
+The Yuvomi service runs in a separate container. The APK is only an Android wrapper and does not contain the service database or secrets.
 
-Le APK pubbliche devono essere build `release`, non `debug`. Le build debug precedenti sono state rimosse dalla repository pubblica. Una release firmata richiede una keystore persistente conservata separatamente; senza keystore non è possibile garantire aggiornamenti Android affidabili.
+## Build and security
 
-Non inserire in questa repository `.env`, segreti applicativi, token Tailscale, chiavi GitHub o credenziali.
+Public APKs are built as `release`, not `debug`, by GitHub Actions when the `v0.2.*` tag workflow runs. The current v0.2.1 release APKs were built successfully by run `33398013795`.
+
+A signed production release requires a persistent keystore stored separately. Do not add `.env` files, application secrets, Tailscale tokens, GitHub keys or credentials to this repository.
