@@ -225,8 +225,8 @@ public final class TabletSettingsActivity extends Activity {
             timeoutSpinner.setSelection(timeoutIndex(timeout));
             timeoutStatus.setText(String.format(Locale.ROOT, "Current Android value: %s", timeoutLabel(timeout)));
 
-            int screensaverEnabled = Settings.Secure.getInt(getContentResolver(), Settings.Secure.SCREENSAVER_ENABLED, 0);
-            String component = Settings.Secure.getString(getContentResolver(), Settings.Secure.SCREENSAVER_COMPONENTS);
+            int screensaverEnabled = Settings.Secure.getInt(getContentResolver(), "screensaver_enabled", 0);
+            String component = Settings.Secure.getString(getContentResolver(), "screensaver_components");
             screensaverStatus.setText(screensaverEnabled != 0
                     ? "Enabled" + (component == null || component.length() == 0 ? "" : " — configuration present")
                     : "Disabled");
