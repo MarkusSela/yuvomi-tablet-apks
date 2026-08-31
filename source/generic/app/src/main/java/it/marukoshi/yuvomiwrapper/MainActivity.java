@@ -209,6 +209,18 @@ public final class MainActivity extends Activity {
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT));
 
+        Button settings = new Button(this);
+        settings.setText("⚙️");
+        settings.setContentDescription("Impostazioni tablet Android");
+        settings.setOnClickListener(view -> startActivity(new Intent(this, TabletSettingsActivity.class)));
+        FrameLayout.LayoutParams settingsParams = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT,
+                Gravity.TOP | Gravity.END);
+        settingsParams.topMargin = 12;
+        settingsParams.rightMargin = 12;
+        root.addView(settings, settingsParams);
+
         setContentView(root);
         if (savedInstanceState == null) webView.loadUrl(endpoint.toString());
         else webView.restoreState(savedInstanceState);
