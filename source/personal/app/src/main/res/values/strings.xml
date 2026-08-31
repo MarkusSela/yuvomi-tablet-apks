@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">Yuvomi</string>
-    <string name="yuvomi_url">https://user-praim-a44.tail6e6024.ts.net:8454</string>
-    <string name="connection_error">Yuvomi is unreachable. Check Tailscale and try again.</string>
-    <string name="retry">Retry</string>
-</resources>
