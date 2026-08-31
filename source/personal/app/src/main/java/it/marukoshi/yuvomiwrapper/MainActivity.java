@@ -66,7 +66,7 @@ public final class MainActivity extends Activity {
 
         Button settings = new Button(this);
         settings.setText("⚙️");
-        settings.setContentDescription("Impostazioni tablet Android");
+        settings.setContentDescription("Android tablet settings");
         settings.setOnClickListener(view -> startActivity(new Intent(this, TabletSettingsActivity.class)));
         FrameLayout.LayoutParams settingsParams = new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.WRAP_CONTENT,
@@ -184,9 +184,9 @@ public final class MainActivity extends Activity {
                             URLUtil.guessFileName(url, contentDisposition, mimetype));
                     DownloadManager manager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                     if (manager != null) manager.enqueue(request);
-                    Toast.makeText(MainActivity.this, "Download avviato", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Download started", Toast.LENGTH_SHORT).show();
                 } catch (Exception error) {
-                    Toast.makeText(MainActivity.this, "Download non disponibile", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Download unavailable", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -202,7 +202,7 @@ public final class MainActivity extends Activity {
         try {
             startActivity(new Intent(Intent.ACTION_VIEW, uri));
         } catch (Exception ignored) {
-            Toast.makeText(this, "Collegamento non disponibile", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Link unavailable", Toast.LENGTH_SHORT).show();
         }
         return true;
     }

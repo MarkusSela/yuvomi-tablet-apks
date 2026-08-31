@@ -1,52 +1,54 @@
-# Requisiti per un tablet identico
+# Requirements for an identical tablet
 
-## Sistema
+## System
 
-- Android 6.0/API 23 o superiore (`minSdk 23`).
-- Schermo in orientamento verticale: il wrapper dichiara portrait.
-- WebView di sistema aggiornato tramite Android System WebView o Chrome.
-- Download Manager e selettore documenti Android disponibili.
+- Android 6.0/API 23 or newer (`minSdk 23`).
+- Portrait display orientation.
+- System WebView updated through Android System WebView or Chrome.
+- Android Download Manager and document picker available.
 
-Il wrapper non contiene librerie native proprie: la build è indipendente dall’ABI del tablet e usa la WebView Android.
+The wrapper contains no custom native libraries: the build is ABI-independent and uses Android WebView.
 
-## Rete
+## Network
 
-### Versione personale
+### Personal version
 
-Il tablet deve avere Tailscale installato, essere autenticato nello stesso tailnet del server, risolvere `user-praim-a44.tail6e6024.ts.net` e raggiungere `https://user-praim-a44.tail6e6024.ts.net:8454`.
+The tablet must have Tailscale installed, be authenticated to the same tailnet as the server, resolve `user-praim-a44.tail6e6024.ts.net`, and reach `https://user-praim-a44.tail6e6024.ts.net:8454`.
 
-### Versione generica
+### Generic version
 
-Al primo avvio inserire un indirizzo completo HTTP o HTTPS, senza query o frammento. Esempio raccomandato:
+At first launch, enter a complete HTTP or HTTPS address without a query or fragment. Recommended example:
 
 `https://server-del-tuo-tailnet.ts.net:8454`
 
-Per il test solo LAN è possibile usare l’indirizzo del server sulla porta 3000, ma Tailscale HTTPS è la scelta preferita.
+For LAN-only testing, the server address on port 3000 can be used, but Tailscale HTTPS is preferred.
 
-## Installazione
+## Installation
 
-1. Installare Tailscale e collegare il tablet al tailnet.
-2. Scaricare l’APK personale o generico dalla release privata.
-3. Abilitare temporaneamente l’installazione da sorgenti consentite dal file manager/browser usato.
-4. Installare l’APK.
-5. Aprire Yuvomi e verificare il caricamento del sito.
-6. Disabilitare nuovamente l’autorizzazione di installazione se non serve.
-7. Se è richiesto l’avvio dopo il riavvio, autorizzare l’app nelle impostazioni di avvio automatico/batteria del produttore.
+1. Install Tailscale and connect the tablet to the tailnet.
+2. Download the personal or generic APK from the public release.
+3. Temporarily allow installation from the file manager or browser used.
+4. Install the APK.
+5. Open Yuvomi and verify that the site loads.
+6. Disable the installation permission again when it is no longer needed.
+7. If launch after reboot is required, allow the app in the manufacturer's auto-start and battery settings.
 
-## Funzioni del wrapper
+## Wrapper features
 
-Sono abilitate JavaScript, DOM storage/localStorage e database WebView, cookie inclusi quelli di terze parti, selezione di uno o più file, download tramite Download Manager, modalità immersive fullscreen, schermo mantenuto acceso, cronologia WebView con tasto indietro e avvio dopo `BOOT_COMPLETED`.
+JavaScript, DOM storage/localStorage, WebView database, cookies including third-party cookies, single and multiple file selection, Download Manager downloads, immersive fullscreen, keep-screen-on behavior, WebView history with the back button, and launch after `BOOT_COMPLETED` are enabled.
 
-Il fullscreen implementato è quello immersivo del sistema; non è presente la gestione HTML `onShowCustomView`/`onHideCustomView`.
+The implemented fullscreen is the system immersive mode; HTML `onShowCustomView`/`onHideCustomView` handling is not included.
 
-## Diagnosi rapida
+The `⚙️` button opens native Android tablet settings outside the Yuvomi WebView. These settings control brightness, audio, touch sounds, global orientation, display timeout and screensaver access.
 
-- **Pagina non raggiungibile:** controllare Tailscale sul tablet e lo stato `healthy` del container.
-- **Certificato/HTTPS:** usare l’hostname Tailscale e non un IP HTTPS improvvisato.
-- **Upload assente:** verificare il selettore documenti Android.
-- **Download assente:** verificare Download Manager e spazio disponibile.
-- **Non parte dopo il boot:** verificare permessi di avvio automatico e risparmio batteria del produttore.
+## Quick diagnosis
 
-## APK originale del tablet
+- **Page unreachable:** check Tailscale on the tablet and the container `healthy` status.
+- **Certificate/HTTPS:** use the Tailscale hostname instead of an improvised HTTPS IP address.
+- **Upload unavailable:** check the Android document picker.
+- **Download unavailable:** check Download Manager and available storage.
+- **Does not launch after boot:** check manufacturer auto-start and battery-saving permissions.
 
-L’APK originale `com.fujia.calendar` è conservato come asset della release per rollback o ripristino. Non disinstallarlo dal tablet finché la nuova installazione non è stata verificata.
+## Original tablet APK
+
+The original `com.fujia.calendar` APK is retained as a release asset for rollback or recovery. Do not uninstall it from the tablet until the new installation has been verified.

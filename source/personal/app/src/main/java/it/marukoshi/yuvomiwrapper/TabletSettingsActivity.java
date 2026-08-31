@@ -32,7 +32,7 @@ public final class TabletSettingsActivity extends Activity {
             60_000L, 120_000L, 300_000L, 600_000L, 900_000L, 1_800_000L, NEVER_TIMEOUT
     };
     private static final String[] TIMEOUT_LABELS = {
-            "1 minuto", "2 minuti", "5 minuti", "10 minuti", "15 minuti", "30 minuti", "Mai"
+            "1 minute", "2 minutes", "5 minutes", "10 minutes", "15 minutes", "30 minutes", "Never"
     };
 
     private SeekBar brightnessBar;
@@ -63,10 +63,10 @@ public final class TabletSettingsActivity extends Activity {
         scrollView.addView(root, new ScrollView.LayoutParams(
                 ScrollView.LayoutParams.MATCH_PARENT, ScrollView.LayoutParams.WRAP_CONTENT));
 
-        TextView title = text("Impostazioni tablet", 28, 0xff191816);
+        TextView title = text("Tablet settings", 28, 0xff191816);
         title.setTypeface(null, android.graphics.Typeface.BOLD);
         root.addView(title, marginParams(0, 0, 0, 8));
-        root.addView(text("Questi controlli modificano direttamente il sistema Android. Non sono impostazioni del calendario Yuvomi.", 15, 0xff5c5954), marginParams(0, 0, 0, 18));
+        root.addView(text("These controls modify Android directly. They are not Yuvomi calendar settings.", 15, 0xff5c5954), marginParams(0, 0, 0, 18));
 
         root.addView(buildPermissionCard());
         root.addView(buildBrightnessCard(), marginParams(0, 14, 0, 0));
@@ -81,10 +81,10 @@ public final class TabletSettingsActivity extends Activity {
 
     private LinearLayout buildPermissionCard() {
         LinearLayout card = card();
-        card.addView(sectionTitle("Permesso Android"));
-        permissionStatus = text("Verifica permessi…", 14, 0xff5c5954);
+        card.addView(sectionTitle("Android permission"));
+        permissionStatus = text("Checking permission…", 14, 0xff5c5954);
         card.addView(permissionStatus, marginParams(0, 6, 0, 10));
-        Button button = button("Apri permesso modifica impostazioni");
+        Button button = button("Open settings modification permission");
         button.setOnClickListener(view -> openSystemSettings("write-settings"));
         card.addView(button);
         return card;
@@ -92,8 +92,8 @@ public final class TabletSettingsActivity extends Activity {
 
     private LinearLayout buildBrightnessCard() {
         LinearLayout card = card();
-        card.addView(sectionTitle("Luminosità"));
-        card.addView(text("Regola il display del tablet.", 14, 0xff5c5954), marginParams(0, 6, 0, 10));
+        card.addView(sectionTitle("Brightness"));
+        card.addView(text("Adjust the tablet display.", 14, 0xff5c5954), marginParams(0, 6, 0, 10));
         brightnessBar = new SeekBar(this);
         brightnessBar.setMax(100);
         brightnessBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -105,7 +105,7 @@ public final class TabletSettingsActivity extends Activity {
         });
         card.addView(brightnessBar, marginParams(0, 0, 0, 4));
         automaticBrightnessSwitch = new Switch(this);
-        automaticBrightnessSwitch.setText("Luminosità automatica");
+        automaticBrightnessSwitch.setText("Automatic brightness");
         automaticBrightnessSwitch.setTextSize(16);
         automaticBrightnessSwitch.setOnCheckedChangeListener((buttonView, checked) -> {
             if (!bindingState) applyBrightness();
@@ -117,14 +117,14 @@ public final class TabletSettingsActivity extends Activity {
     private LinearLayout buildAudioCard() {
         LinearLayout card = card();
         card.addView(sectionTitle("Audio"));
-        card.addView(text("I volumi vengono modificati direttamente da Android.", 14, 0xff5c5954), marginParams(0, 6, 0, 8));
-        addVolume(card, "Volume media", AudioManager.STREAM_MUSIC);
-        addVolume(card, "Sveglie e promemoria", AudioManager.STREAM_ALARM);
-        addVolume(card, "Notifiche", AudioManager.STREAM_NOTIFICATION);
-        addVolume(card, "Suoneria", AudioManager.STREAM_RING);
-        addVolume(card, "Sistema e tasti", AudioManager.STREAM_SYSTEM);
+        card.addView(text("Volumes are modified directly by Android.", 14, 0xff5c5954), marginParams(0, 6, 0, 8));
+        addVolume(card, "Media volume", AudioManager.STREAM_MUSIC);
+        addVolume(card, "Alarms and reminders", AudioManager.STREAM_ALARM);
+        addVolume(card, "Notifications", AudioManager.STREAM_NOTIFICATION);
+        addVolume(card, "Ringtone", AudioManager.STREAM_RING);
+        addVolume(card, "System and keys", AudioManager.STREAM_SYSTEM);
         Switch touchSounds = new Switch(this);
-        touchSounds.setText("Suoni al tocco");
+        touchSounds.setText("Touch sounds");
         touchSounds.setTextSize(16);
         touchSounds.setTag("touch-sounds");
         touchSounds.setOnCheckedChangeListener((buttonView, checked) -> {
@@ -153,9 +153,9 @@ public final class TabletSettingsActivity extends Activity {
 
     private LinearLayout buildOrientationCard() {
         LinearLayout card = card();
-        card.addView(sectionTitle("Orientamento globale"));
-        card.addView(text("Tenta di modificare la rotazione globale del tablet Android.", 14, 0xff5c5954), marginParams(0, 6, 0, 8));
-        orientationSpinner = spinner(new String[]{"Automatico", "Verticale", "Orizzontale"});
+        card.addView(sectionTitle("Global orientation"));
+        card.addView(text("Try to change the global rotation of the Android tablet.", 14, 0xff5c5954), marginParams(0, 6, 0, 8));
+        orientationSpinner = spinner(new String[]{"Automatic", "Portrait", "Landscape"});
         orientationSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (!bindingState) applyOrientation(position == 0 ? "auto" : position == 1 ? "portrait" : "landscape");
@@ -168,8 +168,8 @@ public final class TabletSettingsActivity extends Activity {
 
     private LinearLayout buildTimeoutCard() {
         LinearLayout card = card();
-        card.addView(sectionTitle("Inattività display"));
-        card.addView(text("Imposta dopo quanto Android può spegnere il display.", 14, 0xff5c5954), marginParams(0, 6, 0, 8));
+        card.addView(sectionTitle("Display inactivity"));
+        card.addView(text("Set when Android may turn off the display.", 14, 0xff5c5954), marginParams(0, 6, 0, 8));
         timeoutSpinner = spinner(TIMEOUT_LABELS);
         timeoutSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -185,11 +185,11 @@ public final class TabletSettingsActivity extends Activity {
 
     private LinearLayout buildScreensaverCard() {
         LinearLayout card = card();
-        card.addView(sectionTitle("Salvaschermo Android"));
-        card.addView(text("Lo stato viene letto dal sistema. Android può richiedere la modifica direttamente nella sua schermata protetta.", 14, 0xff5c5954), marginParams(0, 6, 0, 8));
-        screensaverStatus = text("Verifica stato…", 14, 0xff5c5954);
+        card.addView(sectionTitle("Android screensaver"));
+        card.addView(text("The state is read from the system. Android may require changes in its protected settings screen.", 14, 0xff5c5954), marginParams(0, 6, 0, 8));
+        screensaverStatus = text("Checking status…", 14, 0xff5c5954);
         card.addView(screensaverStatus, marginParams(0, 0, 0, 10));
-        Button button = button("Apri impostazioni salvaschermo Android");
+        Button button = button("Open Android screensaver settings");
         button.setOnClickListener(view -> openSystemSettings("dream"));
         card.addView(button);
         return card;
@@ -200,8 +200,8 @@ public final class TabletSettingsActivity extends Activity {
         try {
             boolean writable = canWriteSettings();
             permissionStatus.setText(writable
-                    ? "Permesso modifica impostazioni: attivo"
-                    : "Permesso modifica impostazioni: non ancora concesso");
+                    ? "Settings modification permission: granted"
+                    : "Settings modification permission: not granted yet");
             permissionStatus.setTextColor(writable ? 0xff246b3a : 0xff9b3d24);
 
             int brightness = Settings.System.getInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS, BRIGHTNESS_MAX);
@@ -223,15 +223,15 @@ public final class TabletSettingsActivity extends Activity {
             orientationSpinner.setSelection("auto".equals(orientation) ? 0 : "portrait".equals(orientation) ? 1 : 2);
             long timeout = Settings.System.getLong(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT, NEVER_TIMEOUT);
             timeoutSpinner.setSelection(timeoutIndex(timeout));
-            timeoutStatus.setText(String.format(Locale.ROOT, "Valore Android attuale: %s", timeoutLabel(timeout)));
+            timeoutStatus.setText(String.format(Locale.ROOT, "Current Android value: %s", timeoutLabel(timeout)));
 
             int screensaverEnabled = Settings.Secure.getInt(getContentResolver(), Settings.Secure.SCREENSAVER_ENABLED, 0);
             String component = Settings.Secure.getString(getContentResolver(), Settings.Secure.SCREENSAVER_COMPONENTS);
             screensaverStatus.setText(screensaverEnabled != 0
-                    ? "Attivo" + (component == null || component.length() == 0 ? "" : " — configurazione presente")
-                    : "Disattivato");
+                    ? "Enabled" + (component == null || component.length() == 0 ? "" : " — configuration present")
+                    : "Disabled");
         } catch (Exception error) {
-            Toast.makeText(this, "Stato tablet non disponibile", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Tablet state unavailable", Toast.LENGTH_SHORT).show();
         } finally {
             bindingState = false;
         }
@@ -278,7 +278,7 @@ public final class TabletSettingsActivity extends Activity {
             resolvedAudioManager.setStreamVolume(stream, Math.round((percent / 100f) * max), 0);
             refreshState();
         } catch (Exception error) {
-            Toast.makeText(this, "Volume non modificabile", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Volume cannot be changed", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -332,7 +332,7 @@ public final class TabletSettingsActivity extends Activity {
     }
 
     private void showPermissionError() {
-        Toast.makeText(this, "Concedi il permesso Android per modificare le impostazioni", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Grant Android permission to modify settings", Toast.LENGTH_LONG).show();
     }
 
     private void openSystemSettings(String action) {
@@ -348,7 +348,7 @@ public final class TabletSettingsActivity extends Activity {
         try {
             startActivity(intent);
         } catch (Exception error) {
-            Toast.makeText(this, "Impostazioni Android non disponibili", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Android settings unavailable", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -379,7 +379,7 @@ public final class TabletSettingsActivity extends Activity {
 
     private String timeoutLabel(long timeout) {
         for (int i = 0; i < TIMEOUTS.length; i++) if (TIMEOUTS[i] == timeout) return TIMEOUT_LABELS[i];
-        return "personalizzato";
+        return "custom";
     }
 
     private Spinner spinner(String[] values) {

@@ -1,53 +1,53 @@
-# Container Yuvomi: configurazione verificata
+# Yuvomi container: verified configuration
 
-Verifica eseguita sul server Ubuntu il 27 agosto 2026.
+Verification performed on the Ubuntu server on 27 August 2026.
 
-## Servizio attivo
+## Active service
 
 - Container: `yuvomi`
-- Immagine: `ghcr.io/ulsklyc/yuvomi:2.45.0`
-- Comando: `node server/index.js`
-- Porta interna: `3000/tcp`
-- Stato verificato: attivo e `healthy`
-- Endpoint LAN: `http://192.168.1.16:3000`
-- Endpoint Tailscale usato dall’APK personale: `https://user-praim-a44.tail6e6024.ts.net:8454`
-- Accesso Tailscale: solo tailnet, non Internet pubblico
+- Image: `ghcr.io/ulsklyc/yuvomi:2.45.0`
+- Command: `node server/index.js`
+- Internal port: `3000/tcp`
+- Verified status: running and `healthy`
+- LAN endpoint: `http://192.168.1.16:3000`
+- Tailscale endpoint used by the personal APK: `https://user-praim-a44.tail6e6024.ts.net:8454`
+- Tailscale access: tailnet only, not the public Internet
 
-Tailscale Serve inoltra la porta 8454 verso `192.168.1.16:3000`.
+Tailscale Serve forwards port 8454 to `192.168.1.16:3000`.
 
-## Compose verificato
+## Verified Compose configuration
 
-Directory sul server: `/home/user/yuvomi`
+Server directory: `/home/user/yuvomi`
 
-File Compose: `/home/user/yuvomi/docker-compose.yml`
+Compose file: `/home/user/yuvomi/docker-compose.yml`
 
-Il servizio usa:
+The service uses:
 
 - `image: ghcr.io/ulsklyc/yuvomi:2.45.0`
 - `container_name: yuvomi`
 - `restart: unless-stopped`
-- bind LAN su `192.168.1.16:${OIKOS_HTTP_PORT:-3000}:3000`
-- bind Tailscale su `100.107.29.37:${OIKOS_HTTP_PORT:-3000}:3000`
+- LAN bind on `192.168.1.16:${OIKOS_HTTP_PORT:-3000}:3000`
+- Tailscale bind on `100.107.29.37:${OIKOS_HTTP_PORT:-3000}:3000`
 - `env_file: .env`
 - `NODE_ENV=production`
-- `DB_PATH` predefinito `/data/yuvomi.db`
+- default `DB_PATH` `/data/yuvomi.db`
 - `BACKUP_DIR=/backups`
-- healthcheck HTTP su `http://localhost:3000/health`
+- HTTP healthcheck at `http://localhost:3000/health`
 
-## Volumi necessari
+## Required volumes
 
-- `./data:/data`: database e dati applicativi
-- `./backups:/backups`: backup
-- `./modules:/app/modules`: moduli Yuvomi
-- `./documents:/documents` oppure il percorso definito da `DOCUMENT_STORAGE_LOCAL_PATH`: documenti locali, se abilitati
+- `./data:/data`: database and application data
+- `./backups:/backups`: backups
+- `./modules:/app/modules`: Yuvomi modules
+- `./documents:/documents` or the path defined by `DOCUMENT_STORAGE_LOCAL_PATH`: local documents, when enabled
 
-## Configurazione minima
+## Minimum configuration
 
-Il file `/home/user/yuvomi/.env` deve esistere sul server e contenere almeno i segreti applicativi richiesti, in particolare `SESSION_SECRET` e `DB_ENCRYPTION_KEY`, oltre alla configurazione della porta e del database. I valori reali non vengono copiati in questa repository.
+The file `/home/user/yuvomi/.env` must exist on the server and contain the required application secrets, especially `SESSION_SECRET` and `DB_ENCRYPTION_KEY`, along with port and database configuration. Actual values are not copied into this repository.
 
-Per una nuova installazione servono inoltre Docker Engine, Docker Compose v2, directory persistenti per dati e backup, un `.env` generato fuori da Git, Tailscale autenticato sul server e Tailscale Serve configurato per inoltrare 8454 a 3000.
+A new installation also requires Docker Engine, Docker Compose v2, persistent data and backup directories, a `.env` generated outside Git, authenticated Tailscale on the server, and Tailscale Serve configured to forward 8454 to 3000.
 
-## Controlli prima del tablet
+## Checks before using the tablet
 
 ```bash
 docker compose -f /home/user/yuvomi/docker-compose.yml ps yuvomi
@@ -55,8 +55,8 @@ curl -fsS http://127.0.0.1:3000/health
 sudo tailscale serve status
 ```
 
-Il controllo corretto deve mostrare il container `healthy`, l’endpoint `/health` HTTP 200 e la rotta Tailscale 8454 verso `192.168.1.16:3000`.
+The correct result must show the container as `healthy`, HTTP 200 from `/health`, and the Tailscale 8454 route forwarding to `192.168.1.16:3000`.
 
-## Regola di sicurezza
+## Security rule
 
-Non pubblicare la porta 3000 su Internet e non inserire il `.env` nella repository. Il tablet deve raggiungere il servizio tramite LAN autorizzata o Tailscale.
+Do not publish port 3000 to the Internet and do not put `.env` in the repository. The tablet must reach the service through an authorized LAN or Tailscale.

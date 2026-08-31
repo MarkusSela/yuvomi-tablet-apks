@@ -1,7 +1,7 @@
-# Sorgenti wrapper
+# Wrapper sources
 
-`personal/` è il wrapper personale con endpoint Tailscale preconfigurato.
+`personal/` is the personal wrapper with a preconfigured Tailscale endpoint.
 
-`generic/` è il wrapper generico con schermata iniziale per inserire e salvare l’endpoint Yuvomi.
+`generic/` is the generic wrapper with an initial screen for entering and saving the Yuvomi endpoint.
 
-I due progetti usano lo stesso package Java per le classi, ma application ID distinti: il personale `it.marukoshi.yuvomiwrapper`, il generico `it.marukoshi.yuvomiwrapper.generic`.
+Both projects use the same Java package for their classes, but different application IDs: personal `it.marukoshi.yuvomiwrapper`, generic `it.marukoshi.yuvomiwrapper.generic`.

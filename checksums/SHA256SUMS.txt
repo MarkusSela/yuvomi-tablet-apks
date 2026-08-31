@@ -1,7 +1,7 @@
-# SHA-256 degli artefatti Yuvomi Tablet APK
+# SHA-256 checksums for Yuvomi Tablet APK artifacts
 
-967b6daeaf788ad9393d7e80acac680dee5a9d2fba8a15d25411c7524199ea4c  yuvomi-personale-v0.1.0-corrente.apk  # 18231 byte; ZIP OK
+967b6daeaf788ad9393d7e80acac680dee5a9d2fba8a15d25411c7524199ea4c  yuvomi-personale-v0.1.0-corrente.apk  # 18231 bytes; ZIP OK
 
-tablet-original-com.fujia.calendar.apk  e6ebb74ca156b192b83052b8cac8be158557a84160402edfabb61d649dcac5c1  # 290573410 byte; asset release
+tablet-original-com.fujia.calendar.apk  e6ebb74ca156b192b83052b8cac8be158557a84160402edfabb61d649dcac5c1  # 290573410 bytes; release asset
 
-Nota: gli APK `debug` v0.2.0 sono stati rimossi dalla repository pubblica. I nuovi APK v0.2.1 saranno aggiunti solo dopo una build `release` verificata.
+Note: v0.2.0 `debug` APKs were removed from the public repository. New v0.2.1 APKs will be added only after a verified `release` build.
